@@ -363,7 +363,7 @@ virtual class uvm_tr_stream extends uvm_object;
 
 
    // @uvm-ieee 1800.2-2020 auto 7.2.5.2
-   function unsigned get_recorders(ref uvm_recorder q[$]);
+   function int unsigned get_recorders(ref uvm_recorder q[$]);
       // Clear out the queue first...
       q.delete();
       // Fill in the values

@@ -2045,7 +2045,7 @@ task uvm_reg_map::do_bus_access (uvm_reg_item rw,
     uvm_reg_addr_t     addrs[$];
     uvm_reg_map        system_map = get_root_map();
     int unsigned       bus_width  = get_n_bytes();
-    uvm_reg_byte_en_t  byte_en    = -1;
+    uvm_reg_byte_en_t  byte_en    = 8'hFF;
     uvm_reg_map_info   map_info;
     int                n_bits;
     int                lsb;

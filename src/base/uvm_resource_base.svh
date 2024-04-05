@@ -116,7 +116,8 @@ class uvm_resource_types;
 
   // types uses for setting overrides
   typedef bit[1:0] override_t;
-  typedef enum override_t { TYPE_OVERRIDE = 2'b01,
+  typedef enum override_t { NO_OVERRIDE = 2'b00,
+                            TYPE_OVERRIDE = 2'b01,
                             NAME_OVERRIDE = 2'b10 } override_e;
 
   // general purpose queue of resource

@@ -445,7 +445,7 @@ class uvm_reg extends uvm_object;
    // @uvm-ieee 1800.2-2020 auto 18.4.4.15
    // @uvm-ieee 1800.2-2020 auto 18.8.5.7
    extern virtual function bit predict (uvm_reg_data_t    value,
-                                        uvm_reg_byte_en_t be = -1,
+                                        uvm_reg_byte_en_t be = 8'hFF,
                                         uvm_predict_e     kind = UVM_PREDICT_DIRECT,
                                         uvm_door_e        path = UVM_FRONTDOOR,
                                         uvm_reg_map       map = null,
@@ -492,7 +492,7 @@ class uvm_reg extends uvm_object;
    extern virtual function void do_predict
                                 (uvm_reg_item      rw,
                                  uvm_predict_e     kind = UVM_PREDICT_DIRECT,
-                                 uvm_reg_byte_en_t be = -1);
+                                 uvm_reg_byte_en_t be = 8'hFF);
    //-----------------
    // Group -- NODOCS -- Frontdoor
    //-----------------
@@ -1615,7 +1615,7 @@ endfunction: set
 // predict
 
 function bit uvm_reg::predict (uvm_reg_data_t    value,
-                               uvm_reg_byte_en_t be = -1,
+                               uvm_reg_byte_en_t be = 8'hFF,
                                uvm_predict_e     kind = UVM_PREDICT_DIRECT,
                                uvm_door_e        path = UVM_FRONTDOOR,
                                uvm_reg_map       map = null,
@@ -1636,7 +1636,7 @@ endfunction: predict
 
 function void uvm_reg::do_predict(uvm_reg_item      rw,
                                   uvm_predict_e     kind = UVM_PREDICT_DIRECT,
-                                  uvm_reg_byte_en_t be = -1);
+                                  uvm_reg_byte_en_t be = 8'hFF);
 
    uvm_reg_data_t reg_value = rw.get_value(0);
    m_fname = rw.get_fname();

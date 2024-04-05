@@ -837,7 +837,7 @@ class uvm_objection extends uvm_report_object;
                   end
 `endif             
                     // Execute the forked drain
-                    objection.m_forked_drain(ctxt.obj, ctxt.source_obj, ctxt.description, ctxt.count, 1);
+                    objection.m_forked_drain(ctxt.obj, ctxt.source_obj, ctxt.description, ctxt.count);
                     // Cleanup if we survived (no re-raises)
                     objection.m_drain_proc.delete(ctxt.obj);
                     objection.m_forked_contexts.delete(ctxt.obj);
@@ -859,8 +859,7 @@ class uvm_objection extends uvm_report_object;
   task m_forked_drain (uvm_object obj,
                        uvm_object source_obj,
                        string description="",
-                       int count=1,
-                       int in_top_thread=0);
+                       int count=1);
 
       if (m_drain_time.exists(obj)) 
         begin
@@ -1198,7 +1197,7 @@ class uvm_objection extends uvm_report_object;
 
   // m_display_objections
 
-  protected function string m_display_objections(uvm_object obj=null, bit show_header=1);
+  protected function string m_display_objections(uvm_object obj=null);
 
     static string blank="                                                                                   ";
     
@@ -1303,7 +1302,7 @@ class uvm_objection extends uvm_report_object;
   
 
   function string convert2string();
-    return m_display_objections(m_top,1);
+    return m_display_objections(m_top);
   endfunction
   
   
@@ -1315,7 +1314,7 @@ class uvm_objection extends uvm_report_object;
   // output.
 
   function void display_objections(uvm_object obj=null, bit show_header=1);
-    string m = m_display_objections(obj,show_header);
+    string m = m_display_objections(obj);
     `uvm_info("UVM/OBJ/DISPLAY",m,UVM_NONE)
   endfunction
 

@@ -355,7 +355,7 @@ class uvm_reg_field extends uvm_object;
 
    // @uvm-ieee 1800.2-2020 auto 18.5.5.17
    extern function bit predict (uvm_reg_data_t    value,
-                                uvm_reg_byte_en_t be = -1,
+                                uvm_reg_byte_en_t be = 8'hFF,
                                 uvm_predict_e     kind = UVM_PREDICT_DIRECT,
                                 uvm_door_e        path = UVM_FRONTDOOR,
                                 uvm_reg_map       map = null,
@@ -381,7 +381,7 @@ class uvm_reg_field extends uvm_object;
    extern virtual function void do_predict 
                                   (uvm_reg_item rw,
                                    uvm_predict_e kind=UVM_PREDICT_DIRECT,
-                                   uvm_reg_byte_en_t be = -1);
+                                   uvm_reg_byte_en_t be = 8'hFF);
 
 
    extern function void pre_randomize();
@@ -907,7 +907,7 @@ endfunction: XpredictX
 // predict
 
 function bit uvm_reg_field::predict (uvm_reg_data_t    value,
-                                     uvm_reg_byte_en_t be = -1,
+                                     uvm_reg_byte_en_t be = 8'hFF,
                                      uvm_predict_e     kind = UVM_PREDICT_DIRECT,
                                      uvm_door_e        path = UVM_FRONTDOOR,
                                      uvm_reg_map       map = null,
@@ -928,7 +928,7 @@ endfunction: predict
 
 function void uvm_reg_field::do_predict(uvm_reg_item      rw,
                                         uvm_predict_e     kind = UVM_PREDICT_DIRECT,
-                                        uvm_reg_byte_en_t be = -1);
+                                        uvm_reg_byte_en_t be = 8'hFF);
    
    uvm_reg_data_t field_val = rw.get_value(0) & ((1 << m_size)-1);
 

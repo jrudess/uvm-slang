@@ -203,14 +203,14 @@ class uvm_resource_pool extends uvm_void;
 
   //@uvm-compat provided for compatibility with 1.2
   function void set (uvm_resource_base rsrc, 
-                     uvm_resource_types::override_t override = 0);
+                     uvm_resource_types::override_t override = uvm_resource_types::NO_OVERRIDE);
 
     // If resource handle is ~null~ then there is nothing to do.
     if (rsrc == null) begin
       return ;
     end
 
-    if (override != 2'b00) begin 
+    if (override != uvm_resource_types::NO_OVERRIDE) begin 
         
       set_override(rsrc, rsrc.get_scope()) ;
     end

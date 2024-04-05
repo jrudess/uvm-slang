@@ -114,7 +114,7 @@ class uvm_reg_indirect_data extends uvm_reg;
    
    virtual function void do_predict (uvm_reg_item      rw,
                                      uvm_predict_e     kind = UVM_PREDICT_DIRECT,
-                                     uvm_reg_byte_en_t be = -1);
+                                     uvm_reg_byte_en_t be = 8'hFF);
       if (m_idx.get() >= m_tbl.size()) begin
         `uvm_error(get_full_name(), $sformatf("Address register %s has a value (%0d) greater than the maximum indirect register array size (%0d)", m_idx.get_full_name(), m_idx.get(), m_tbl.size()))
         rw.set_status(UVM_NOT_OK);

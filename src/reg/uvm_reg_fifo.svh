@@ -220,7 +220,7 @@ class uvm_reg_fifo extends uvm_reg;
     //
     virtual function void do_predict(uvm_reg_item      rw,
                                      uvm_predict_e     kind = UVM_PREDICT_DIRECT,
-                                     uvm_reg_byte_en_t be = -1);
+                                     uvm_reg_byte_en_t be = 8'hFF);
 
       super.do_predict(rw,kind,be);
 

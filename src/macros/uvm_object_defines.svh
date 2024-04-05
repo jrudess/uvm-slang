@@ -196,7 +196,7 @@ local function void __m_uvm_execute_field_op( uvm_field_op __local_op__ );      
    string local_rsrc_name__;                                                    \
    uvm_object local_obj__; /* Used when trying to read uvm_object resources */  \
    bit local_success__; /* Used when trying to read resources */                \
-   typedef T __local_type__; /* Used for referring to type T in field macros */ \
+   // typedef T __local_type__; /* Used for referring to type T in field macros */ \
    int local_size__; /* Used when unpacking size values */                      \
    /* All possible policy classes */                                            \
    /* Using the same name as the do_* methods, allows macro reuse */            \

@@ -167,7 +167,7 @@ class uvm_reg_predictor #(type BUSTYPE=int) extends uvm_component;
     end
 
      // In case they forget to set byte_en
-     rw.byte_en = -1;
+     rw.byte_en = 8'hFF;
      adapter.bus2reg(tr,rw);
      rg = map.get_reg_by_offset(rw.addr, (rw.kind == UVM_READ));
 

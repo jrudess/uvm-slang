@@ -54,9 +54,10 @@ class uvm_cmdline_verbosity extends uvm_cmdline_setting_base;
   // the report object ~ro~.  If ~ro~ is null, then no warnings shall be generated.
   static function void init(input uvm_report_object ro);
     string  setting_str[$];
-    int     verbosity;
     int     verb_count;
+`ifdef UVM_CMDLINE_NO_DPI
     string  verb_string;
+`endif
     uvm_cmdline_processor clp = uvm_cmdline_processor::get_inst();
 
 `ifndef UVM_CMDLINE_NO_DPI
@@ -81,7 +82,7 @@ class uvm_cmdline_verbosity extends uvm_cmdline_setting_base;
         if (code > 0) begin
           `uvm_info_context("NSTVERB", 
           $sformatf("Non-standard verbosity value '%s', converted to '%0d'.",
-          setting_str[i], verbosity),
+          setting_str[i], setting.verbosity),
           UVM_NONE,
           ro)
           setting.src = NON_STANDARD;

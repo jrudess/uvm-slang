@@ -59,8 +59,6 @@ class uvm_mem extends uvm_object;
 // seems to break a lot of existing tests and code. 
 // Sought LRM clarification
 
-   typedef enum {UNKNOWNS, ZEROES, ONES, ADDRESS, VALUE, INCR, DECR} init_e;
-
    local bit               m_locked;
    local bit               m_read_in_progress;
    local bit               m_write_in_progress;

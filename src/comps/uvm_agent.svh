@@ -72,7 +72,6 @@ virtual class uvm_agent extends uvm_component;
   endfunction
 
   function void build_phase(uvm_phase phase);
-     int active;
      uvm_resource_pool rp;
      uvm_resource_types::rsrc_q_t rq;
      bit found;

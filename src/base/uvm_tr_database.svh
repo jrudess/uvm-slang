@@ -157,7 +157,7 @@ virtual class uvm_tr_database extends uvm_object;
    
 
    // @uvm-ieee 1800.2-2020 auto 7.1.4.2
-   function unsigned get_streams(ref uvm_tr_stream q[$]);
+   function int unsigned get_streams(ref uvm_tr_stream q[$]);
       // Clear out the queue first...
       q.delete();
       // Then fill in the values
