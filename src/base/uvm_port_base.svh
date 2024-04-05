@@ -895,7 +895,7 @@ virtual class uvm_port_base #(type IF=uvm_void) extends IF;
         size(), max_size()), UVM_NONE);
     end
 
-    if (size()) begin
+    if (size() > 0) begin
       
       set_if(0);
     end

@@ -896,7 +896,6 @@ class uvm_text_recorder extends uvm_recorder;
    protected virtual function void do_record_object(string name,
                                                     uvm_object value);
       int            v;
-      string         str;
 
       if(get_id_enabled()) begin
         if(value != null) begin

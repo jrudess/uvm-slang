@@ -125,7 +125,7 @@ function string uvm_instance_scope();
   //remove the extraneous .uvm_instance_scope piece or ::uvm_instance_scope
   pos = uvm_instance_scope.len()-1;
   c = uvm_instance_scope[pos];
-  while(pos && (c != ".") && (c != ":")) begin 
+  while(pos > 0 && (c != ".") && (c != ":")) begin 
     
     c = uvm_instance_scope[--pos];
   end
@@ -287,7 +287,7 @@ function string uvm_leaf_scope (string full_name, byte scope_separator = ".");
 
     end
   end
-  if(pos) begin
+  if(pos > 0) begin
     if(scope_separator != ".") begin
       pos--;
     end
@@ -431,7 +431,6 @@ endfunction
 
 function int uvm_get_array_index_int(string arg, output bit is_wildcard);
   int i;
-  int rt_val;
    
   uvm_get_array_index_int = 0;
   is_wildcard = 1;
@@ -458,7 +457,7 @@ function int uvm_get_array_index_int(string arg, output bit is_wildcard);
 
   if(i>0) begin
     arg = arg.substr(i+1, arg.len()-2);
-    rt_val = $sscanf(arg, "%d" ,uvm_get_array_index_int ); 
+    void'($sscanf(arg, "%d" ,uvm_get_array_index_int ));
     is_wildcard = 0;
   end
 endfunction 

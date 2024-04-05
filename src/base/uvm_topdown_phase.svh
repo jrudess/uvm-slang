@@ -104,13 +104,13 @@ virtual class uvm_topdown_phase extends uvm_phase;
         end
         endcase
     end
-    if(comp.get_first_child(name)) begin
+    if(comp.get_first_child(name) > 0) begin
       
       do begin
         
         hopper.traverse_on(this, comp.get_child(name), phase, state);
       end
-      while(comp.get_next_child(name));
+      while(comp.get_next_child(name) > 0);
     end
 
   endfunction

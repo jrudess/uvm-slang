@@ -995,7 +995,7 @@ function bit  uvm_reg::has_hdl_path(string kind = "");
 
   end
 
-  return m_hdl_paths_pool.exists(kind);
+  return m_hdl_paths_pool.exists(kind) > 0;
 endfunction
 
 
@@ -1014,7 +1014,7 @@ function void uvm_reg::get_hdl_path_kinds (ref string kinds[$]);
     kinds.push_back(kind);
   end
 
-  while (m_hdl_paths_pool.next(kind));
+  while (m_hdl_paths_pool.next(kind) > 0);
 endfunction
 
 
@@ -1660,7 +1660,7 @@ function void uvm_reg::do_predict(uvm_reg_item      rw,
      rw.set_value(reg_value, 0);
    end
    else begin
-     `uvm_warning("PREDICT_NOK", "status UVM_NOT_OK; skip prediction.");
+     `uvm_warning("PREDICT_NOK", "status UVM_NOT_OK; skip prediction.")
    end
 endfunction: do_predict
 
@@ -2076,7 +2076,7 @@ task uvm_reg::do_write (uvm_reg_item rw);
    rw.set_element_kind(UVM_REG);
 
    // REPORT
-   if (uvm_report_enabled(UVM_HIGH, UVM_INFO, "RegModel")) begin
+   if (uvm_report_enabled(UVM_HIGH, UVM_INFO, "RegModel") > 0) begin
      string path_s,value_s;
      uvm_reg_map tmp_map;
      if (rw.get_door() == UVM_FRONTDOOR) begin
@@ -2421,7 +2421,7 @@ task uvm_reg::do_read(uvm_reg_item rw);
    rw.set_element_kind(UVM_REG);
 
    // REPORT
-   if (uvm_report_enabled(UVM_HIGH, UVM_INFO, "RegModel")) begin
+   if (uvm_report_enabled(UVM_HIGH, UVM_INFO, "RegModel") > 0) begin
      string path_s,value_s;
      if (rw.get_door() == UVM_FRONTDOOR) begin
        uvm_reg_map map = rw.get_map();
@@ -2918,14 +2918,14 @@ task uvm_reg::XatomicX(bit on);
      end
      else begin
        if ((m_process != null) && (m_process.status() == process::KILLED)) begin
-         `uvm_error("UVM/REG/ZOMBIE", $sformatf("Register %s access permanently locked by killed process", get_full_name()));
+         `uvm_error("UVM/REG/ZOMBIE", $sformatf("Register %s access permanently locked by killed process", get_full_name()))
        end
        m_atomic.get(1);
        m_process = m_reg_process; 
      end
    end
    else begin
-     if (m_atomic_cnt) begin
+     if (m_atomic_cnt > 0) begin
        m_atomic_cnt--; 
        return;
      end

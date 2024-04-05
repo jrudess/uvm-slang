@@ -304,7 +304,7 @@ class uvm_heartbeat extends uvm_object;
               end 
               UVM_ANY_ACTIVE: begin              
                 
-                if(m_cb.cnt.num() && !m_cb.objects_triggered()) begin
+                if(m_cb.cnt.num() > 0 && !m_cb.objects_triggered()) begin
                   string s;
                   foreach(m_cb.cnt[idx]) begin
                     obj = idx;
@@ -320,7 +320,7 @@ class uvm_heartbeat extends uvm_object;
                   string s;
                   foreach(m_cb.cnt[idx])  begin
                     obj = idx;
-                    if(m_cb.cnt[obj]) begin
+                    if(m_cb.cnt[obj] > 0) begin
                       $swrite(s,"%s\n  %s (updated: %0t)",
                          s, obj.get_full_name(), m_cb.last_trigger[obj]);
                     end
@@ -329,7 +329,7 @@ class uvm_heartbeat extends uvm_object;
                   m_cntxt.uvm_report_fatal("HBFAIL", $sformatf("Recieved update of %s from more than one component since last event trigger at time %0t. The list of triggered components is:%s",
                       m_objection.get_name(), last_trigger, s), UVM_NONE); 
                 end
-                if(m_cb.cnt.num() && !m_cb.objects_triggered()) begin
+                if(m_cb.cnt.num() > 0 && !m_cb.objects_triggered()) begin
                   string s;
                   foreach(m_cb.cnt[idx]) begin
                     obj = idx;

@@ -64,7 +64,7 @@ class uvm_regex_cache extends uvm_lru_cache#(string, chandle);
   virtual function optional_data evict(KEY_T key);
     chandle tmp[$];
     tmp = super.evict(key);
-    if (tmp.size() && tmp[0] != null) begin
+    if (tmp.size() > 0 && tmp[0] != null) begin
       uvm_re_free(tmp[0]);
     end
     return tmp;

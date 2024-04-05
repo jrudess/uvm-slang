@@ -445,7 +445,7 @@ function void uvm_root::report_header(UVM_FILE file = 0);
     srvr = uvm_report_server::get_server();
     clp = uvm_cmdline_processor::get_inst();
 
-    if (clp.get_arg_matches("+UVM_NO_RELNOTES", args)) begin
+    if (clp.get_arg_matches("+UVM_NO_RELNOTES", args) > 0) begin
       return;
     end
 
@@ -726,12 +726,12 @@ function void uvm_root::m_find_all_recurse(string comp_match, ref uvm_component 
         input uvm_component comp=null);
     string name;
 
-    if (comp.get_first_child(name)) begin
+    if (comp.get_first_child(name) > 0) begin
         
       do begin
         this.m_find_all_recurse(comp_match, comps, comp.get_child(name));
       end
-      while (comp.get_next_child(name));
+      while (comp.get_next_child(name) > 0);
     end
 
     if (uvm_is_match(comp_match, comp.get_full_name()) &&
@@ -858,7 +858,7 @@ function void uvm_root::m_do_cmdline_checks();
 
   uvm_cmdline_set_verbosity::check(this);
   
-  if(clp.get_arg_matches("+UVM_DUMP_REPORT_ARGS", dump_args)) begin
+  if(clp.get_arg_matches("+UVM_DUMP_REPORT_ARGS", dump_args) > 0) begin
     string msgs[$];
 
 `ifdef UVM_CMDLINE_NO_DPI
@@ -975,7 +975,7 @@ endfunction
 
 function void uvm_root::m_process_type_override(string ovr);
     string split_val[$];
-    int replace=1;
+    bit replace=1'b1;
     uvm_coreservice_t cs = uvm_coreservice_t::get();
     uvm_factory factory=cs.get_factory();
 
@@ -990,11 +990,11 @@ function void uvm_root::m_process_type_override(string ovr);
     // Replace arg is optional. If set, must be 0 or 1
     if(split_val.size() == 3) begin
       if(split_val[2]=="0") begin
-        replace =  0;
+        replace = 1'b0;
       end
 
       else if (split_val[2] == "1") begin
-        replace = 1;
+        replace = 1'b1;
       end
 
       else begin
@@ -1303,7 +1303,7 @@ function void uvm_root::m_do_dump_args();
     string dump_args[$];
     string all_args[$];
     string out_string;
-    if(clp.get_arg_matches("+UVM_DUMP_CMDLINE_ARGS", dump_args)) begin
+    if(clp.get_arg_matches("+UVM_DUMP_CMDLINE_ARGS", dump_args) > 0) begin
       clp.get_args(all_args);
       foreach (all_args[idx]) begin
         uvm_report_info("DUMPARGS", $sformatf("idx=%0d arg=[%s]",idx,all_args[idx]), UVM_NONE);

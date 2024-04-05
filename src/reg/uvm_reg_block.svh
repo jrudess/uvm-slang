@@ -1111,7 +1111,7 @@ endclass: uvm_reg_block
 // ----------------------
 
 function void uvm_reg_block::m_do_cmdline_settings();
-    if($test$plusargs("UVM_ENABLE_REG_LOOKUP_CACHE")) begin
+    if($test$plusargs("UVM_ENABLE_REG_LOOKUP_CACHE") > 0) begin
         
       uvm_reg_block::set_reg_lookup_cache(1);
     end
@@ -2389,7 +2389,7 @@ function bit  uvm_reg_block::has_hdl_path(string kind = "");
   if (kind == "") begin
     kind = get_default_hdl_path();
   end
-  return hdl_paths_pool.exists(kind);
+  return hdl_paths_pool.exists(kind) > 0;
 endfunction
 
 

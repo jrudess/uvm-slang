@@ -1377,7 +1377,7 @@ task uvm_mem::do_write(uvm_reg_item rw);
 
 
    // REPORT
-   if (uvm_report_enabled(UVM_HIGH, UVM_INFO, "RegModel")) begin
+   if (uvm_report_enabled(UVM_HIGH, UVM_INFO, "RegModel") > 0) begin
      string path_s,value_s,pre_s,range_s;
      uvm_reg_map rw_map = rw.get_map();
      if (rw.get_door() == UVM_FRONTDOOR) begin
@@ -1521,7 +1521,7 @@ task uvm_mem::do_read(uvm_reg_item rw);
    post_read(rw);
    
    // REPORT
-   if (uvm_report_enabled(UVM_HIGH, UVM_INFO, "RegModel")) begin
+   if (uvm_report_enabled(UVM_HIGH, UVM_INFO, "RegModel") > 0) begin
      uvm_reg_map rw_map;
      string path_s,value_s,pre_s,range_s;
      rw_map = rw.get_map();
@@ -2034,7 +2034,7 @@ function bit  uvm_mem::has_hdl_path(string kind = "");
   end
 
   
-  return m_hdl_paths_pool.exists(kind);
+  return m_hdl_paths_pool.exists(kind) > 0;
 endfunction
 
 
@@ -2082,7 +2082,7 @@ function void uvm_mem::get_hdl_path_kinds (ref string kinds[$]);
     kinds.push_back(kind);
   end
 
-  while (m_hdl_paths_pool.next(kind));
+  while (m_hdl_paths_pool.next(kind) > 0);
 endfunction
 
 // get_full_hdl_path

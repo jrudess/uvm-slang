@@ -169,7 +169,6 @@ class uvm_reg_fifo extends uvm_reg;
                         input  uvm_object        extension = null,
                         input  string            fname = "",
                         input  int               lineno = 0);
-       uvm_reg_data_t upd;
        if (!m_set_cnt || fifo.size() == 0) begin
           
          return;
@@ -274,7 +273,7 @@ class uvm_reg_fifo extends uvm_reg;
     // must override ~pre_write~ as appropriate.
     //
     virtual task pre_write(uvm_reg_item rw);
-      if (m_set_cnt && !m_update_in_progress) begin
+      if (m_set_cnt > 0 && !m_update_in_progress) begin
         `uvm_error("Needs Update","Must call update() after set() and before write()")
         rw.set_status(UVM_NOT_OK);
         return;

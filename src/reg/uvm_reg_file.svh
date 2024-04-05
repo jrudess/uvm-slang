@@ -242,7 +242,7 @@ function bit  uvm_reg_file::has_hdl_path(string kind = "");
 
     end
   
-  return hdl_paths_pool.exists(kind);
+  return hdl_paths_pool.exists(kind) > 0;
 endfunction
 
 

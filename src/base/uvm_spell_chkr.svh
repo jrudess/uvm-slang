@@ -131,7 +131,7 @@ class uvm_spell_chkr #(type T=int);
         q.push_back(min_key[i]);
         q.push_back("|");
       end
-      if(q.size()) begin
+      if(q.size() > 0) begin
                
         void'(q.pop_back());
       end

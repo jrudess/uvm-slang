@@ -605,7 +605,7 @@ function void uvm_sequencer_base::grant_queued_locks();
     begin
       int lock_req_indices[$];
       lock_req_indices = arb_sequence_q.find_first_index(item) with (item.request==SEQ_TYPE_LOCK && is_blocked(item.sequence_ptr) == 0);
-      if(lock_req_indices.size()) begin
+      if(lock_req_indices.size() > 0) begin
         uvm_sequence_request lock_req = arb_sequence_q[lock_req_indices[0]];
         lock_list.push_back(lock_req.sequence_ptr);
         m_set_arbitration_completed(lock_req.request_id);

@@ -154,7 +154,7 @@ class uvm_objection extends uvm_report_object;
 
     // Get the command line trace mode setting
     clp = uvm_cmdline_processor::get_inst();
-    if(clp.get_arg_matches("+UVM_OBJECTION_TRACE", trace_args)) 
+    if(clp.get_arg_matches("+UVM_OBJECTION_TRACE", trace_args) > 0) 
       begin
         m_trace_mode=1;
       end
@@ -224,7 +224,7 @@ class uvm_objection extends uvm_report_object;
           cpath++;
         end 
 
-        if(last_dot) 
+        if(last_dot > 0) 
           begin
             sname = sname.substr(last_dot+1, sname.len());
           end
@@ -677,7 +677,7 @@ class uvm_objection extends uvm_report_object;
     else 
       begin
         uvm_objection_context_object ctxt;
-        if (m_context_pool.size())
+        if (m_context_pool.size() > 0)
         begin
           ctxt = m_context_pool.pop_front();
         end
@@ -733,7 +733,7 @@ class uvm_objection extends uvm_report_object;
         name = obj.get_full_name();
       end
 
-    if (!m_top_all_dropped && get_objection_total(m_top))
+    if (!m_top_all_dropped && get_objection_total(m_top) > 0)
       begin
         uvm_report_warning("OBJTN_CLEAR",{"Object '",name,
             "' cleared objection counts for ",get_name()});
@@ -762,7 +762,7 @@ class uvm_objection extends uvm_report_object;
     // Scheduled contexts and m_forked_lists have duplicate
     // entries... clear out one, free the other.
     m_scheduled_contexts.delete();
-    while (m_forked_list.size()) 
+    while (m_forked_list.size() > 0) 
       begin
         m_forked_list[0].clear();
         m_context_pool.push_back(m_forked_list[0]);

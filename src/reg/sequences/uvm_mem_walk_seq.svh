@@ -126,7 +126,7 @@ class uvm_mem_single_walk_seq extends uvm_reg_sequence #(uvm_sequence #(uvm_reg_
       // Walk the memory via each map
       foreach (maps[j]) begin
         uvm_status_e status;
-        uvm_reg_data_t  val, exp, v;
+        uvm_reg_data_t  val, exp;
          
         // Only deal with RW memories
         if (mem.get_access(maps[j]) != "RW") begin

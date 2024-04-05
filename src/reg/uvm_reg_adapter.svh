@@ -239,7 +239,6 @@ class uvm_reg_tlm_adapter extends uvm_reg_adapter;
                                 ref uvm_reg_bus_op rw);
 
     uvm_tlm_gp gp;
-    int nbytes;
 
     if (bus_item == null) 
       begin

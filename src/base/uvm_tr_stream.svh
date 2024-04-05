@@ -259,7 +259,6 @@ virtual class uvm_tr_stream extends uvm_object;
                            string stream_type_name="");
       
       m_uvm_tr_stream_cfg m_cfg;
-      uvm_tr_database m_db;
       if (db == null) 
         begin
           `uvm_error("UVM/REC_STR/NULL_DB",

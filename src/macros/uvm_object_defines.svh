@@ -1679,7 +1679,7 @@ UVM_``OP: \
       end \
       else begin \
         string local_name__ = {`"ARG`", "["}; \
-        if (local_rsrc_name__.len() && \
+        if (local_rsrc_name__.len() > 0 && \
             local_rsrc_name__[local_rsrc_name__.len()-1] == "]" && \
             local_rsrc_name__.substr(0, local_name__.len()-1) == local_name__) begin \
           string local_index_str__ = local_rsrc_name__.substr(local_name__.len(), \

@@ -1741,12 +1741,12 @@ function uvm_component::new (string name, uvm_component parent);
   end
 
 
-  if(uvm_report_enabled(UVM_MEDIUM+1, UVM_INFO, "NEWCOMP")) begin
+  if(uvm_report_enabled(UVM_MEDIUM+1, UVM_INFO, "NEWCOMP") > 0) begin
     `uvm_info("NEWCOMP", {"Creating ",
     (parent==top?"uvm_top":parent.get_full_name()),".",name},UVM_MEDIUM+1)
   end
 
-  if (parent.has_child(name) && this != parent.get_child(name)) begin
+  if (parent.has_child(name) > 0 && this != parent.get_child(name)) begin
     if (parent == top) begin
       error_str = {"Name '",name,"' is not unique to other top-level ",
       "instances. If parent is a module, build a unique name by combining the ",
@@ -1792,7 +1792,7 @@ function uvm_component::new (string name, uvm_component parent);
     do begin
       // Apply in highest precedence order, exit on first match
       rsrc = rq.pop_front();
-      `uvm_resource_builtin_int_read(found, rsrc, recording_detail, this);
+      `uvm_resource_builtin_int_read(found, rsrc, recording_detail, this)
     end
     while (!found && (rq.size() > 0));
   end
@@ -2525,7 +2525,7 @@ function void uvm_component::set_domain(uvm_domain domain, int hier=1);
   // build and store the custom domain
   m_domain = domain;
   define_domain(domain);
-  if (hier) begin
+  if (hier > 0) begin
     
     foreach (m_children[c]) begin
       
@@ -2547,7 +2547,7 @@ endfunction
 // -------------
 function void uvm_component::set_phase_imp(uvm_phase phase, uvm_phase imp, int hier=1);
   m_phase_imps[phase] = imp;
-  if (hier) begin
+  if (hier > 0) begin
     
     foreach (m_children[c]) begin
       
@@ -3260,7 +3260,7 @@ function void uvm_component::apply_config_settings (bit verbose=0);
     this.do_execute_op(op);
     op.m_recycle();
 
-    while (names.size()) begin
+    while (names.size() > 0) begin
       uvm_acs_name_struct s;
       s = names.pop_front();
       // We could push this into the macros themselves, ie. have the
@@ -3311,7 +3311,7 @@ function void uvm_component::apply_config_settings (bit verbose=0);
   else begin
     // The following is VERY expensive. CONFIG_CHECK_NAMES is much better. 
     rq = rp.lookup_scope(get_full_name());
-    while (rq.size()) begin
+    while (rq.size() > 0) begin
       string name;
       r = rq.pop_front();
       name = r.get_name();
@@ -3499,7 +3499,7 @@ function void uvm_component::do_execute_op( uvm_field_op op );
       if (!$cast(printer,op.get_policy())) begin
         `uvm_error("INVPRINTOP","do_execute_op() called with a field_op that has op_type UVM_PRINT but a policy that does not derive from uvm_printer")
       end
-      else if (get_first_child(name)) begin
+      else if (get_first_child(name) > 0) begin
         
         do begin
           child_comp = get_child(name);
@@ -3508,7 +3508,7 @@ function void uvm_component::do_execute_op( uvm_field_op op );
             printer.print_object(name,child_comp);
           end
 
-        end while (get_next_child(name));
+        end while (get_next_child(name) > 0);
       end
 
     end

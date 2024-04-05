@@ -271,8 +271,6 @@ class uvm_resource_debug extends uvm_object ;
 
   virtual function void record_write_access(uvm_object accessor = null);
 
-    string str;
-
     // If an accessor object is supplied then get the accessor record.
     // Otherwise create a new access record.  In either case populate
     // the access record with information about this access.  
@@ -308,7 +306,6 @@ class uvm_resource_debug extends uvm_object ;
   virtual function void print_accessors();
 
     string str;
-    uvm_component comp;
     uvm_resource_types::access_t access_record;
     string qs[$];
     

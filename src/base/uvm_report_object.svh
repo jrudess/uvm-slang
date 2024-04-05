@@ -160,9 +160,9 @@ class uvm_report_object extends uvm_object;
   virtual function void uvm_report( uvm_severity severity,
                                     string id,
                                     string message,
-                                    int verbosity = (severity == uvm_severity'(UVM_ERROR)) ? UVM_NONE :
-                                                    (severity == uvm_severity'(UVM_FATAL)) ? UVM_NONE : 
-                                                    (severity == uvm_severity'(UVM_WARNING)) ? UVM_NONE : UVM_MEDIUM,
+                                    int verbosity = (severity == UVM_ERROR) ? UVM_NONE :
+                                                    (severity == UVM_FATAL) ? UVM_NONE : 
+                                                    (severity == UVM_WARNING) ? UVM_NONE : UVM_MEDIUM,
                                     string filename = "",
                                     int line = 0,
                                     string context_name = "",

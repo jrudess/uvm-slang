@@ -477,7 +477,7 @@ class uvm_reg_map extends uvm_object;
   local function automatic int unsigned ceil(int unsigned a, int unsigned b);
     int                                           r = a / b;
     int                                           r0 = a % b;
-    return r0 ? (r+1): r;
+    return r0 > 0 ? (r+1): r;
   endfunction
   
   /*
@@ -566,8 +566,6 @@ class uvm_reg_map extends uvm_object;
     begin
       uvm_reg_map m;
       uvm_reg_block b = get_parent();
-      uvm_reg qr[$];
-      uvm_mem qm[$];
       
       m = b.create_map(get_name(),0,m_n_bytes,m_endian,m_byte_addressing);
       
@@ -1388,7 +1386,7 @@ function int uvm_reg_map::get_physical_addresses_to_map(
     uvm_reg_addr_t laddr;
     begin
       // adjust base_addr to find the base of memword(mem_offset)
-      if(mem_offset) begin
+      if(mem_offset > 0) begin
         base_addr+=mem_offset*mem.get_n_bytes()/get_addr_unit_bytes();
       end
       laddr=lbase_addr + base_addr*get_addr_unit_bytes()/up_map.get_addr_unit_bytes(); // start address in terms of the upper map
@@ -1403,7 +1401,7 @@ function int uvm_reg_map::get_physical_addresses_to_map(
     local_addr= new[ceil(n_bytes,bus_width)];
 
     lbase_addr2 = base_addr;
-    if(mem_offset) begin                    
+    if(mem_offset > 0) begin                    
       
       if(mem!=null && (mem.get_n_bytes() >= get_addr_unit_bytes())) begin // packed model
         lbase_addr2 = base_addr + mem_offset*mem.get_n_bytes()/get_addr_unit_bytes();
@@ -1675,7 +1673,7 @@ function void uvm_reg_map::Xinit_address_mapX();
 
       if(mem.get_n_bytes() > get_addr_unit_bytes()) begin
             
-        if(mem.get_n_bytes() % get_addr_unit_bytes())  begin
+        if((mem.get_n_bytes() % get_addr_unit_bytes()) > 0)  begin
           `uvm_warning("UVM/REG/ADDR",$sformatf("memory %s is not matching the word width of the enclosing map %s  (one memory word not fitting into k map addresses)",
           mem.get_full_name(),get_full_name()))
         end
@@ -1683,13 +1681,13 @@ function void uvm_reg_map::Xinit_address_mapX();
     
 
       if(mem.get_n_bytes() < get_addr_unit_bytes()) begin
-        if(get_addr_unit_bytes() % mem.get_n_bytes()) begin
+        if((get_addr_unit_bytes() % mem.get_n_bytes()) > 0) begin
           `uvm_warning("UVM/REG/ADDR",$sformatf("the memory %s is not matching the word width of the enclosing map %s  (one map address doesnt cover k memory words)",
           mem.get_full_name(),get_full_name()))
         end
       end
 
-      if(mem.get_n_bits() % 8) begin
+      if((mem.get_n_bits() % 8) > 0) begin
         `uvm_warning("UVM/REG/ADDR",$sformatf("this implementation of UVM requires memory words to be k*8 bits (mem %s has %0d bit words)",mem.get_full_name(),mem.get_n_bits()))
       end
         
@@ -2146,7 +2144,7 @@ task uvm_reg_map::do_bus_access (uvm_reg_item rw,
       end
             
 
-      if(bit_shift) begin
+      if(bit_shift > 0) begin
         bit bits[$];
         // The streaming operator is very useful for converting
         // a byte stream to a bit stream, but the below line
@@ -2257,7 +2255,7 @@ task uvm_reg_map::do_bus_access (uvm_reg_item rw,
           rw.set_value(0,i);
         end
 
-        if(bit_shift) begin
+        if(bit_shift > 0) begin
           uvm_reg_data_t ac;
           ac='0;
           for(int i=0;i<p.size();i++) begin
@@ -2271,7 +2269,7 @@ task uvm_reg_map::do_bus_access (uvm_reg_item rw,
                 
             p[i] = nv;
           end
-          if(extra_byte) begin
+          if(extra_byte > 0) begin
                 
             void'(p.pop_back());
           end

@@ -289,7 +289,7 @@ class uvm_typed_callbacks#(type T=uvm_object) extends uvm_callbacks_base;
       end
 
     end
-    if(m_t_inst.m_pool.first(obj)) begin
+    if(m_t_inst.m_pool.first(obj) > 0) begin
       do begin
         if($cast(me,obj)) begin
           q = m_t_inst.m_pool.get(obj);
@@ -311,7 +311,7 @@ class uvm_typed_callbacks#(type T=uvm_object) extends uvm_callbacks_base;
           end
         end
       end 
-      while(m_t_inst.m_pool.next(obj));
+      while(m_t_inst.m_pool.next(obj) > 0);
     end
     foreach(m_derived_types[i]) begin
       cb_pair = uvm_typeid_base::typeid_map[m_derived_types[i] ];
@@ -336,7 +336,7 @@ class uvm_typed_callbacks#(type T=uvm_object) extends uvm_callbacks_base;
       m_delete_tw_cbs = 1;
     end
 
-    if(m_t_inst.m_pool.first(obj)) begin
+    if(m_t_inst.m_pool.first(obj) > 0) begin
       do begin
         q = m_t_inst.m_pool.get(obj);
         if(q==null) begin
@@ -349,7 +349,7 @@ class uvm_typed_callbacks#(type T=uvm_object) extends uvm_callbacks_base;
           m_delete_tw_cbs = 1;
         end
       end 
-      while(m_t_inst.m_pool.next(obj));
+      while(m_t_inst.m_pool.next(obj) > 0);
     end
     foreach(m_derived_types[i]) begin
       cb_pair = uvm_typeid_base::typeid_map[m_derived_types[i] ];
@@ -413,7 +413,7 @@ class uvm_typed_callbacks#(type T=uvm_object) extends uvm_callbacks_base;
     end
 
     if(obj ==null) begin
-      if(m_t_inst.m_pool.first(bobj)) begin
+      if(m_t_inst.m_pool.first(bobj) > 0) begin
         do begin
           
           if($cast(me,bobj)) begin
@@ -422,9 +422,9 @@ class uvm_typed_callbacks#(type T=uvm_object) extends uvm_callbacks_base;
 
         end
 
-        while(m_t_inst.m_pool.next(bobj));
+        while(m_t_inst.m_pool.next(bobj) > 0);
       end
-      if(me != null || m_t_inst.m_tw_cb_q.size()) begin
+      if(me != null || m_t_inst.m_tw_cb_q.size() > 0) begin
         qs.push_back($sformatf("Registered callbacks for all instances of %s\n", tname)); 
         qs.push_back("---------------------------------------------------------------\n");
       end
@@ -456,18 +456,18 @@ class uvm_typed_callbacks#(type T=uvm_object) extends uvm_callbacks_base;
             end
           end
         end 
-        while (m_t_inst.m_pool.next(bobj));
+        while (m_t_inst.m_pool.next(bobj) > 0);
       end
       else begin
         qs.push_back($sformatf("No callbacks registered for any instances of type %s\n", tname));
       end
     end
     else begin
-      if(m_t_inst.m_pool.exists(bobj) || m_t_inst.m_tw_cb_q.size()) begin
+      if(m_t_inst.m_pool.exists(bobj) > 0 || m_t_inst.m_tw_cb_q.size() > 0) begin
         qs.push_back($sformatf("Registered callbacks for instance %s of %s\n", obj.get_full_name(), tname)); 
         qs.push_back("---------------------------------------------------------------\n");
       end
-      if(m_t_inst.m_pool.exists(bobj)) begin
+      if(m_t_inst.m_pool.exists(bobj) > 0) begin
         q = m_t_inst.m_pool.get(bobj);
         if(q==null) begin
           q=new;

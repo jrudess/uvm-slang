@@ -287,7 +287,7 @@ class uvm_resource #(type T=int) extends uvm_resource_base;
     if(!$cast(rsrc, rsrc_base)) begin
       if(rpterr) begin
         $sformat(msg, "Resource with name %s in scope %s has incorrect type", name, scope);
-        `uvm_warning("RSRCTYPE", msg);
+        `uvm_warning("RSRCTYPE", msg)
       end
       return null;
     end
@@ -314,7 +314,7 @@ class uvm_resource #(type T=int) extends uvm_resource_base;
 
     if(!$cast(rsrc, rsrc_base)) begin
       $sformat(msg, "Resource with specified type handle in scope %s was not located", scope);
-      `uvm_warning("RSRCNF", msg);
+      `uvm_warning("RSRCNF", msg)
       return null;
     end
 

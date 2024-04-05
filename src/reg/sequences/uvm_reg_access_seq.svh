@@ -149,7 +149,7 @@ class uvm_reg_single_access_seq extends uvm_reg_sequence #(uvm_sequence #(uvm_re
       // - Read via front door and compare against mirror
       foreach (maps[j]) begin
         uvm_status_e status;
-        uvm_reg_data_t  v, exp;
+        uvm_reg_data_t  v;
          
         `uvm_info("uvm_reg_access_seq", {"Verifying access of register '",
         rg.get_full_name(),"' in map '", maps[j].get_full_name(),

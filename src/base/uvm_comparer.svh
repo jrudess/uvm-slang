@@ -503,9 +503,9 @@ class uvm_comparer extends uvm_policy;
       string msg ;
 
       // If there are stored results
-      if(get_result()) begin
+      if(get_result() > 0) begin
         // If there's a display limit that we've hit
-        if (get_show_max() && (get_show_max() < get_result())) begin 
+        if ((get_show_max() > 0) && (get_show_max() < get_result())) begin 
           
           $swrite(msg, "%0d Miscompare(s) (%0d shown) for object ",
                   result, show_max);

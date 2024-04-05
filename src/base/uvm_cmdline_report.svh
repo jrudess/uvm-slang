@@ -57,7 +57,6 @@ class uvm_cmdline_verbosity extends uvm_cmdline_setting_base;
     int     verbosity;
     int     verb_count;
     string  verb_string;
-    bit     skip;
     uvm_cmdline_processor clp = uvm_cmdline_processor::get_inst();
 
 `ifndef UVM_CMDLINE_NO_DPI
@@ -129,7 +128,7 @@ class uvm_cmdline_verbosity extends uvm_cmdline_setting_base;
       settings.size(),
       settings[0].arg, 
       `UVM_STRING_QUEUE_STREAMING_PACK(verb_q)),
-      ro);
+      ro)
     end // if (settings.size() > 1)
   endfunction : check
 
@@ -138,7 +137,6 @@ class uvm_cmdline_verbosity extends uvm_cmdline_setting_base;
   //
   static function string dump();
     string msgs[$];
-    int    tmp_verb;
 
     foreach (settings[i]) begin
       msgs.push_back($sformatf("\n%s%s: ", prefix, settings[i].arg));
@@ -220,7 +218,6 @@ class uvm_cmdline_set_verbosity extends uvm_cmdline_setting_base;
         end
         
         if (!skip) begin
-          int rt_val;
           uvm_cmdline_set_verbosity setting;
           setting = new();
           setting.arg = setting_str[i];
@@ -229,7 +226,7 @@ class uvm_cmdline_set_verbosity extends uvm_cmdline_setting_base;
           setting.verbosity = temp_verb;
           setting.phase = args[3];
           if (setting.phase == "time") begin
-            rt_val = $sscanf(args[4], "%d", setting.offset);
+            void'($sscanf(args[4], "%d", setting.offset));
           end
           else begin
             

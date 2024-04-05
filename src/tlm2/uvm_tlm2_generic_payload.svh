@@ -406,7 +406,7 @@ class uvm_tlm_generic_payload extends uvm_sequence_item;
 
     printer.print_array_header("data", m_length, "darray(byte)");
     for (int i=0; i < m_length && i < m_data.size(); i++) begin
-      if (m_byte_enable_length) begin
+      if (m_byte_enable_length > 0) begin
         be = m_byte_enable[i % m_byte_enable_length];
         printer.print_generic ($sformatf("[%0d]",i), "byte", 8,
             $sformatf("'h%h%s",m_data[i],((be=='hFF) ? "" : " x")));
@@ -510,7 +510,7 @@ class uvm_tlm_generic_payload extends uvm_sequence_item;
      
       byte unsigned be;
       for (int i=0; i < m_length && i < m_data.size(); i++) begin
-        if (m_byte_enable_length) begin
+        if (m_byte_enable_length > 0) begin
           be = m_byte_enable[i % m_byte_enable_length];
         end
         else begin
@@ -540,7 +540,7 @@ class uvm_tlm_generic_payload extends uvm_sequence_item;
      end
 
 
-    if (comparer.get_result()) begin
+    if (comparer.get_result() > 0) begin
       string msg = $sformatf("GP miscompare between '%s' and '%s':\nlhs = %s\nrhs = %s",
                   get_full_name(), gp.get_full_name(), 
                   this.convert2string(), gp.convert2string());

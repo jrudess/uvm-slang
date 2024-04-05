@@ -188,7 +188,7 @@ endfunction : m_update
 function void uvm_lru_cache::evict_to_max();
   size_t max_size;
   max_size = get_max_size();
-  while (max_size && (max_size < m_hash.size()))
+  while ((max_size > 0) && (max_size < m_hash.size()))
     begin
       void'(evict(m_end.key));
     end

@@ -723,7 +723,7 @@ function uvm_phase::new(string name="uvm_phase",
   begin
     uvm_cmdline_processor clp = uvm_cmdline_processor::get_inst();
     string val;
-    if (clp.get_arg_value("+UVM_PHASE_TRACE", val)) begin
+    if (clp.get_arg_value("+UVM_PHASE_TRACE", val) > 0) begin
       
       m_phase_trace = 1;
     end
@@ -733,7 +733,7 @@ function uvm_phase::new(string name="uvm_phase",
       m_phase_trace = 0;
     end
 
-    if (clp.get_arg_value("+UVM_USE_OVM_RUN_SEMANTIC", val)) begin
+    if (clp.get_arg_value("+UVM_USE_OVM_RUN_SEMANTIC", val) > 0) begin
       
       m_use_ovm_run_semantic = 1;
     end
@@ -1609,7 +1609,7 @@ task uvm_phase::m_wait_for_pred();
     end
 
     if (m_phase_trace) begin
-      if (pred_of_succ.num()) begin
+      if (pred_of_succ.num() > 0) begin
         string s = "( ";
         foreach (pred_of_succ[pred]) begin
           
@@ -1772,7 +1772,7 @@ function void uvm_phase::sync(uvm_domain target,
     uvm_phase queue[$];
     queue.push_back(this);
     visited[this] = 1;
-    while (queue.size()) begin
+    while (queue.size() > 0) begin
       uvm_phase node;
       node = queue.pop_front();
       if (node.m_imp != null) begin
@@ -1834,7 +1834,7 @@ function void uvm_phase::unsync(uvm_domain target,
     uvm_phase queue[$];
     queue.push_back(this);
     visited[this] = 1;
-    while (queue.size()) begin
+    while (queue.size() > 0) begin
       uvm_phase node;
       node = queue.pop_front();
       if (node.m_imp != null) begin
@@ -1865,11 +1865,11 @@ function void uvm_phase::unsync(uvm_domain target,
 
     found_to = from_node.m_sync.find_index(node) with (node == to_node);
     found_from = to_node.m_sync.find_index(node) with (node == from_node);
-    if (found_to.size()) begin
+    if (found_to.size() > 0) begin
       from_node.m_sync.delete(found_to[0]);
     end
 
-    if (found_from.size()) begin
+    if (found_from.size() > 0) begin
       to_node.m_sync.delete(found_from[0]);
     end
 

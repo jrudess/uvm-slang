@@ -646,7 +646,7 @@ class uvm_default_report_server extends uvm_report_server;
 
     if(report_ok) begin
       
-      report_ok = uvm_report_catcher::process_all_report_catchers(report_message);
+      report_ok = uvm_report_catcher::process_all_report_catchers(report_message) > 0;
     end
 
 
@@ -971,12 +971,9 @@ class uvm_default_report_server extends uvm_report_server;
   endfunction
 
   virtual function void m_report_summarize(UVM_FILE file = UVM_STDOUT);
-    string id;
-    string name;
     uvm_root root;
     uvm_action action;
     
-    string output_str;
     string q[$];
 
     uvm_report_catcher::summarize(file);

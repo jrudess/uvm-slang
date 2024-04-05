@@ -113,7 +113,7 @@ class uvm_barrier extends uvm_object;
   // @uvm-ieee 1800.2-2020 auto 10.3.2.3
   virtual function void reset (bit wakeup=1);
     at_threshold = 0;
-    if (num_waiters) 
+    if (num_waiters > 0) 
       begin
         if (wakeup)
         begin

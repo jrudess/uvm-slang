@@ -84,7 +84,6 @@ class uvm_reg_single_bit_bash_seq extends uvm_reg_sequence #(uvm_sequence #(uvm_
       string mode[`UVM_REG_DATA_WIDTH];
       uvm_reg_map maps[$];
       uvm_reg_data_t  dc_mask;
-      uvm_reg_data_t  reset_val;
       int n_bits;
       string field_access;
          
@@ -113,14 +112,13 @@ class uvm_reg_single_bit_bash_seq extends uvm_reg_sequence #(uvm_sequence #(uvm_
          
       // Bash the bits in the register via each map
       foreach (maps[j]) begin
-        uvm_status_e status;
-        uvm_reg_data_t  val, exp, v;
         int next_lsb;
          
         next_lsb = 0;
         dc_mask  = 0;
         foreach (fields[k]) begin
-          int lsb, w, dc;
+          int lsb, w;
+          bit dc;
 
           field_access = fields[k].get_access(maps[j]);
           dc = (fields[k].get_compare() == UVM_NO_CHECK);
@@ -130,7 +128,7 @@ class uvm_reg_single_bit_bash_seq extends uvm_reg_sequence #(uvm_sequence #(uvm_
           // you are not supposed to read them
           case (field_access)
             "WO", "WOC", "WOS", "WO1", "NOACCESS": begin
-              dc = 1;
+              dc = 1'b1;
             end
 
             endcase

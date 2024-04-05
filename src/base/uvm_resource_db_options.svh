@@ -117,7 +117,7 @@ class uvm_resource_db_options;
      
      clp = uvm_cmdline_processor::get_inst();
 
-     if (clp.get_arg_matches("+UVM_RESOURCE_DB_TRACE", trace_args)) begin
+     if (clp.get_arg_matches("+UVM_RESOURCE_DB_TRACE", trace_args) > 0) begin
        tracing = 1;
      end
 

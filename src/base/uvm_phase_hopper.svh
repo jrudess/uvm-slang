@@ -505,8 +505,8 @@ task uvm_phase_hopper::execute_phase(uvm_phase phase);
               uvm_objection phase_done;
               phase_done = phase.get_objection();
               // OVM semantic: don't end until objection raised or stop request
-              if (phase_done.get_objection_total(top) ||
-              phase.m_use_ovm_run_semantic && imp.get_name() == "run") begin
+              if ((phase_done.get_objection_total(top) > 0) ||
+                  (phase.m_use_ovm_run_semantic && imp.get_name() == "run")) begin
                 if (!phase_done.m_top_all_dropped) begin
                   
                   phase_done.wait_for(UVM_ALL_DROPPED, top);

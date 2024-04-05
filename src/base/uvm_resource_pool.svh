@@ -210,7 +210,7 @@ class uvm_resource_pool extends uvm_void;
       return ;
     end
 
-    if (override) begin 
+    if (override != 2'b00) begin 
         
       set_override(rsrc, rsrc.get_scope()) ;
     end
@@ -229,8 +229,6 @@ class uvm_resource_pool extends uvm_void;
     table_q_t rq;
     string name;
     uvm_resource_base type_handle;
-    uvm_resource_base r;
-    int unsigned i;
 
     // If resource handle is ~null~ then there is nothing to do.
     if(rsrc == null) begin
@@ -372,8 +370,7 @@ class uvm_resource_pool extends uvm_void;
 
     table_q_t rq;
     string name;
-    uvm_resource_base r, type_handle;
-    int unsigned i;
+    uvm_resource_base type_handle;
 
     // If resource handle is ~null~ then there is nothing to do.
     if(rsrc == null) begin 
@@ -551,8 +548,6 @@ class uvm_resource_pool extends uvm_void;
                                                     bit rpterr = 1);
     table_q_t rq;
     uvm_resource_types::rsrc_q_t q;
-    uvm_resource_base rsrc;
-    uvm_resource_base r;
     string rsrcs;
 
      // ensure rand stability during lookup
@@ -588,7 +583,6 @@ class uvm_resource_pool extends uvm_void;
       return q;
     end    
 
-    rsrc = null;
     rq = rtab[name];
     for (int iter=0; iter < `M__TABLE_Q(rq).size(); iter++) begin
       uvm_resource_base rsrc_iter;
@@ -618,7 +612,6 @@ class uvm_resource_pool extends uvm_void;
 
     uvm_resource_base rsrc;
     uvm_resource_base r;
-    int unsigned i;
     int unsigned prec;
     int unsigned c_prec;
 
@@ -778,8 +771,6 @@ class uvm_resource_pool extends uvm_void;
 
     uvm_resource_types::rsrc_q_t q = new();
     table_q_t rq;
-    uvm_resource_base r;
-    int unsigned i;
 
     if(type_handle == null || !ttab.exists(type_handle)) begin
       return q;
@@ -810,8 +801,6 @@ class uvm_resource_pool extends uvm_void;
                                          uvm_resource_base type_handle);
 
     table_q_t rq;
-    uvm_resource_base r;
-    int unsigned i;
 
     // No type handle, or type handle not in type table
     if(type_handle == null || !ttab.exists(type_handle)) begin
@@ -860,9 +849,6 @@ class uvm_resource_pool extends uvm_void;
 
     table_q_t rq;
     uvm_resource_types::rsrc_q_t result_q;
-    int unsigned i;
-    uvm_resource_base r;
-    string s;
 
     result_q = new();
 
@@ -898,10 +884,7 @@ class uvm_resource_pool extends uvm_void;
   function uvm_resource_types::rsrc_q_t lookup_scope(string scope);
 
     table_q_t rq;
-    uvm_resource_base r;
-    int unsigned i;
 
-    int unsigned err;
     uvm_resource_types::rsrc_q_t q = new();
 
     //iterate in reverse order for the special case of autoconfig
@@ -1077,7 +1060,6 @@ class uvm_resource_pool extends uvm_void;
 
     table_q_t rq;
     string name;
-    int unsigned i;
     uvm_resource_base rsrc;
 
     if(r == null) begin
@@ -1111,7 +1093,6 @@ class uvm_resource_pool extends uvm_void;
 
     table_q_t rq;
     string name;
-    int unsigned i;
     uvm_resource_base rsrc;
 
     if(r == null) begin
@@ -1156,8 +1137,6 @@ class uvm_resource_pool extends uvm_void;
 
     table_q_t rq;
     uvm_resource_types::rsrc_q_t q = new;
-    int unsigned i;
-    uvm_resource_base r;
     uvm_resource_types::access_t a;
     int reads;
     int writes;
@@ -1211,7 +1190,7 @@ class uvm_resource_pool extends uvm_void;
 
     printer.print_field_int("precedence", get_precedence(r), 32, UVM_UNSIGNED);
     if (audit && (r.dbg!=null)) begin
-      if (r.dbg.access.size()) begin
+      if (r.dbg.access.size() > 0) begin
         printer.print_array_header("accesses",
                                    r.dbg.access.size(),
                                    "queue");
@@ -1261,8 +1240,6 @@ class uvm_resource_pool extends uvm_void;
 
   function void print_resources(uvm_resource_types::rsrc_q_t rq, bit audit = 0);
 
-    int unsigned i;
-    string id;
     static uvm_tree_printer printer = new();
 
     // Basically this is full implementation of something
@@ -1302,7 +1279,6 @@ class uvm_resource_pool extends uvm_void;
 
   function void dump(bit audit = 0, uvm_printer printer = null);
 
-    string name;
     static uvm_tree_printer m_printer;
 
     if (m_printer == null) begin

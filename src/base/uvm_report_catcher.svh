@@ -340,7 +340,6 @@ virtual class uvm_report_catcher extends uvm_callback;
   // @uvm-accellera The details of this API are specific to the Accellera implementation, and are not being considered for contribution to 1800.2
   
   static function void print_catcher(UVM_FILE file = 0);
-      string msg;
       string enabled;
       uvm_report_catcher catcher;
       static uvm_report_cb_iter iter = new(null);
@@ -501,7 +500,7 @@ virtual class uvm_report_catcher extends uvm_callback;
      uvm_report_object ro = m_modified_report_message.get_report_object();
      uvm_action a = ro.get_report_action(msg.get_severity(), msg.get_id());
 
-     if(a) begin
+     if(a > 0) begin
        string composed_message;
        uvm_report_server rs = m_modified_report_message.get_report_server();
 
@@ -564,7 +563,7 @@ virtual class uvm_report_catcher extends uvm_callback;
     in_catcher = 1;    
     uvm_callbacks_base::m_tracing = 0;  //turn off cb tracing so catcher stuff doesn't print
 
-    orig_severity = uvm_severity'(rm.get_severity());
+    orig_severity = rm.get_severity();
     m_modified_report_message = rm;
 
     catcher = uvm_report_cb::get_first(iter,l_report_object);
@@ -704,7 +703,6 @@ virtual class uvm_report_catcher extends uvm_callback;
 
 
   static function void summarize(UVM_FILE file = UVM_STDOUT);
-    string s;
     uvm_root root = uvm_root::get();
     uvm_action action;
     string q[$];

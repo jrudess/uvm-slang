@@ -95,13 +95,13 @@ virtual class uvm_task_phase extends uvm_phase;
     uvm_phase_hopper hopper;
     hopper = uvm_phase_hopper::get_global_hopper();
     
-    if (comp.get_first_child(name)) begin
+    if (comp.get_first_child(name) > 0) begin
       
       do begin
         
         hopper.traverse_on(this, comp.get_child(name), phase, state);
       end
-      while(comp.get_next_child(name));
+      while(comp.get_next_child(name) > 0);
     end
 
 

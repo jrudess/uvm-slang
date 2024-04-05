@@ -180,7 +180,7 @@ function void uvm_sequencer::stop_sequences();
   sequence_item_requested  = 0;
   get_next_item_called     = 0;
   // Empty the request fifo
-  if (m_req_fifo.used()) begin
+  if (m_req_fifo.used() > 0) begin
     uvm_report_info(get_full_name(), "Sequences stopped.  Removing request from sequencer fifo");
     m_req_fifo.flush();
   end

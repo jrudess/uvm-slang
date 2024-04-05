@@ -114,7 +114,7 @@ class uvm_mem_single_access_seq extends uvm_reg_sequence #(uvm_sequence #(uvm_re
       // Walk the memory via each map
       foreach (maps[j]) begin
         uvm_status_e status;
-        uvm_reg_data_t  val, exp, v;
+        uvm_reg_data_t  val, exp;
          
         `uvm_info("uvm_mem_access_seq", {"Verifying access of memory '",
         mem.get_full_name(),"' in map '", maps[j].get_full_name(),
