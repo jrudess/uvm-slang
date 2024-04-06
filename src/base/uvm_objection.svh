@@ -1310,10 +1310,9 @@ class uvm_objection extends uvm_report_object;
   // 
   // Displays objection information about the given ~object~. If ~object~ is
   // not specified or ~null~, the implicit top-level component, <uvm_root>, is
-  // chosen. The ~show_header~ argument allows control of whether a header is
-  // output.
+  // chosen.
 
-  function void display_objections(uvm_object obj=null, bit show_header=1);
+  function void display_objections(uvm_object obj=null);
     string m = m_display_objections(obj);
     `uvm_info("UVM/OBJ/DISPLAY",m,UVM_NONE)
   endfunction

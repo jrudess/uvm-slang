@@ -1286,8 +1286,8 @@ endfunction
 
 function int unsigned uvm_reg_map::get_size();
 
-  int unsigned max_addr;
-  int unsigned addr;
+  uvm_reg_addr_t max_addr;
+  uvm_reg_addr_t addr;
 
   // get max offset from registers
   foreach (m_regs_info[rg_]) begin
@@ -1319,7 +1319,7 @@ function int unsigned uvm_reg_map::get_size();
 
   end
 
-  return max_addr + 1;
+  return 32'(max_addr + 1);
 
 endfunction
 
@@ -1393,7 +1393,7 @@ function int uvm_reg_map::get_physical_addresses_to_map(
       lb = (base_addr*get_addr_unit_bytes()) % up_map.get_addr_unit_bytes(); // potential byte offset on top of the start address in the upper map
       byte_offset += lb; // accumulate!
     end    
-    return up_map.get_physical_addresses_to_map(laddr, 0, n_bytes+lb, addr,parent_map,byte_offset);
+    return up_map.get_physical_addresses_to_map(laddr, 0, 32'(n_bytes+lb), addr,parent_map,byte_offset);
   end else begin
     uvm_reg_addr_t lbase_addr2;
     // first need to compute set of addresses

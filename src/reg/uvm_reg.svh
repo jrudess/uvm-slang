@@ -2965,7 +2965,7 @@ function string uvm_reg::convert2string();
 
    foreach (m_maps[map]) begin
      uvm_reg_map parent_map = map;
-     int unsigned offset;
+     uvm_reg_addr_t offset;
      while (parent_map != null) begin
        uvm_reg_map this_map = parent_map;
        parent_map = this_map.get_parent_map();

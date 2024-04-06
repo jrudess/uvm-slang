@@ -958,7 +958,7 @@ class uvm_text_recorder extends uvm_recorder;
                                                      string value,
                                                      string type_name);
       write_attribute(m_current_context(name), 
-                      uvm_string_to_bits(value), 
+                      uvm_bitstream_t'(uvm_string_to_bits(value)), 
                       UVM_STRING, 
                       8+value.len());
    endfunction : do_record_generic

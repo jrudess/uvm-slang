@@ -231,7 +231,7 @@ class uvm_comparer extends uvm_policy;
   
     if(size <= 64) begin
       
-      return compare_field_int(name, lhs, rhs, size, radix);
+      return compare_field_int(name, 64'(lhs), 64'(rhs), size, radix);
     end
 
   

@@ -798,7 +798,7 @@ endfunction
 // @uvm-contrib This API is being considered for potential contribution to 1800.2
 function void uvm_packer::unpack_object_with_meta(inout uvm_object value);
   int reference_id; 
-  reference_id = unpack_field_int(32);
+  reference_id = 32'(unpack_field_int(32));
   if (m_object_references.exists(reference_id)) begin
     value = m_object_references[reference_id];
     return;

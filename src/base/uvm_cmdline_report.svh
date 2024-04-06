@@ -54,15 +54,15 @@ class uvm_cmdline_verbosity extends uvm_cmdline_setting_base;
   // the report object ~ro~.  If ~ro~ is null, then no warnings shall be generated.
   static function void init(input uvm_report_object ro);
     string  setting_str[$];
-    int     verb_count;
 `ifdef UVM_CMDLINE_NO_DPI
+    int     verb_count;
     string  verb_string;
 `endif
     uvm_cmdline_processor clp = uvm_cmdline_processor::get_inst();
 
 `ifndef UVM_CMDLINE_NO_DPI
     // Retrieve the verbosities provided on the command line
-    verb_count = clp.get_arg_values(prefix, setting_str);
+    void'(clp.get_arg_values(prefix, setting_str));
 `else
     verb_count = $value$plusargs("UVM_VERBOSITY=%s", verb_string);
     if (verb_count)

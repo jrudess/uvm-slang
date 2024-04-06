@@ -1873,7 +1873,7 @@ function uvm_status_e uvm_mem::backdoor_read_func(uvm_reg_item rw);
   for(int mem_idx = 0; mem_idx < rw_value_size; mem_idx++) begin
     //  foreach (rw.value[mem_idx]) begin
     string idx;
-    idx.itoa(rw.get_offset() + mem_idx);
+    idx.itoa(32'(rw.get_offset() + mem_idx));
     foreach (paths[i]) begin
       uvm_hdl_path_concat hdl_concat = paths[i];
       val = 0;
@@ -1901,7 +1901,7 @@ function uvm_status_e uvm_mem::backdoor_read_func(uvm_reg_item rw);
 
       if (i == 0) begin
            
-        rw.set_value(val, mem_idx);
+        rw.set_value(64'(val), mem_idx);
       end
 
 
@@ -1940,7 +1940,7 @@ task uvm_mem::backdoor_write(uvm_reg_item rw);
    
   for(int mem_idx = 0; mem_idx < rw_value_size; mem_idx++) begin
     string idx;
-    idx.itoa(rw.get_offset() + mem_idx);
+    idx.itoa(32'(rw.get_offset() + mem_idx));
     foreach (paths[i]) begin
       uvm_hdl_path_concat hdl_concat = paths[i];
       foreach (hdl_concat.slices[j]) begin
@@ -2170,7 +2170,7 @@ function string uvm_mem::convert2string();
 
    foreach (m_maps[map]) begin
      uvm_reg_map parent_map = map;
-     int unsigned offset;
+     uvm_reg_addr_t offset;
      while (parent_map != null) begin
        uvm_reg_map this_map = parent_map;
        uvm_endianness_e endian_name;

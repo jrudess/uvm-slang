@@ -641,7 +641,7 @@ function bit uvm_vreg::implement(longint unsigned n,
      return 0;
    end
 
-   region = mem.mam.reserve_region(offset,n*incr*mem.get_n_bytes());
+   region = mem.mam.reserve_region(offset,32'(n*incr*mem.get_n_bytes()));
 
    if (region == null) begin
      `uvm_error("RegModel", $sformatf("Could not allocate a memory region for virtual register \"%s\"", this.get_full_name()))
@@ -713,7 +713,7 @@ function uvm_mem_region uvm_vreg::allocate(longint unsigned   n,
    end
 
    // Need memory at least of size num_vregs*sizeof(vreg) in bytes.
-   allocate = mam.request_region(n*incr*mem.get_n_bytes(), alloc);
+   allocate = mam.request_region(32'(n*incr*mem.get_n_bytes()), alloc);
    if (allocate == null) begin
      `uvm_error("RegModel", $sformatf("Could not allocate a memory region for virtual register \"%s\"", this.get_full_name()))
      return null;
@@ -805,7 +805,7 @@ function int unsigned uvm_vreg::get_size();
      return 0;
    end
 
-   return this.size;
+   return 32'(this.size);
 endfunction: get_size
 
 

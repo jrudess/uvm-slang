@@ -339,7 +339,7 @@ virtual class uvm_report_catcher extends uvm_callback;
   //
   // @uvm-accellera The details of this API are specific to the Accellera implementation, and are not being considered for contribution to 1800.2
   
-  static function void print_catcher(UVM_FILE file = 0);
+  static function void print_catcher(/*UVM_FILE file = 0*/);
       string enabled;
       uvm_report_catcher catcher;
       static uvm_report_cb_iter iter = new(null);

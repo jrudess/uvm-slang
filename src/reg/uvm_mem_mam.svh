@@ -659,7 +659,7 @@ function uvm_mem_region uvm_mem_mam::reserve_region(uvm_reg_addr_t start_offset,
    end
 
    end_offset = start_offset + ((n_bytes-1) / this.cfg.n_bytes);
-   n_bytes = (end_offset - start_offset + 1) * this.cfg.n_bytes;
+   n_bytes = 32'((end_offset - start_offset + 1) * this.cfg.n_bytes);
 
    if (end_offset > this.cfg.end_offset) begin
      `uvm_error("RegModel", $sformatf("Cannot reserve past end of memory space: 'h%h > 'h%h",
@@ -686,14 +686,14 @@ function uvm_mem_region uvm_mem_mam::reserve_region(uvm_reg_addr_t start_offset,
      // Regions are stored in increasing start offset
      if (start_offset > this.in_use[i].get_start_offset()) begin
        reserve_region = new(start_offset, end_offset,
-                              end_offset - start_offset + 1, n_bytes, this);
+                              32'(end_offset - start_offset + 1), n_bytes, this);
        this.in_use.insert(i, reserve_region);
        return reserve_region;
      end
    end
 
    reserve_region = new(start_offset, end_offset,
-                        end_offset - start_offset + 1, n_bytes, this);
+                        32'(end_offset - start_offset + 1), n_bytes, this);
    this.in_use.push_back(reserve_region);
 endfunction: reserve_region
 

@@ -267,7 +267,7 @@ class uvm_reg_tlm_adapter extends uvm_reg_adapter;
     rw.byte_en = 0;
     foreach (gp.m_byte_enable[i])
       begin
-        rw.byte_en[i] = gp.m_byte_enable[i];
+        rw.byte_en[i] = gp.m_byte_enable[i] == 8'hFF;
       end
 
 

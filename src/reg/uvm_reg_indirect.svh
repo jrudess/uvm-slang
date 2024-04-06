@@ -123,7 +123,7 @@ class uvm_reg_indirect_data extends uvm_reg;
 
       //NOTE limit to 2**32 registers
       begin
-        int unsigned idx = m_idx.get();
+        int unsigned idx = 32'(m_idx.get());
         m_tbl[idx].do_predict(rw, kind, be);
       end
    endfunction
@@ -154,7 +154,7 @@ class uvm_reg_indirect_data extends uvm_reg;
    
    virtual function uvm_reg get_indirect_reg(string  fname = "",
                                         int     lineno = 0);
-      int unsigned idx = m_idx.get_mirrored_value();
+      int unsigned idx = 32'(m_idx.get_mirrored_value());
       return(m_tbl[idx]);
    endfunction
 
