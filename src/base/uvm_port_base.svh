@@ -295,7 +295,6 @@ virtual class uvm_port_base #(type IF=uvm_void) extends IF;
                 uvm_port_type_e port_type,
                 int min_size=0,
                 int max_size=1);
-    uvm_component comp;
     int tmp;
     m_port_type = port_type;
     m_min_size  = min_size;
@@ -673,7 +672,6 @@ virtual class uvm_port_base #(type IF=uvm_void) extends IF;
 
 
   function void debug_provided_to  (int level=0, int max_level=-1);
-    string nm;
     int num,curr_num;
     this_type port;
     static string indent, save;
@@ -835,7 +833,6 @@ virtual class uvm_port_base #(type IF=uvm_void) extends IF;
   // Internal method.
 
   local function void m_add_list           (this_type provider);
-    string sz;
     this_type imp;
 
     for (int i = 0; i < provider.size(); i++) begin

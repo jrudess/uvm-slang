@@ -614,7 +614,6 @@ class uvm_registry_common #( type Tregistry=int, type Tcreator=int, type Tcreate
   static function void set_inst_override(uvm_object_wrapper override_type,
                                          string inst_path,
                                          uvm_component parent);
-    string full_inst_path;
     uvm_factory factory=uvm_factory::get();
 
     if (parent != null) begin

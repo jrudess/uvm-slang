@@ -224,7 +224,6 @@ class uvm_pool #(type KEY=int, T=uvm_void) extends uvm_object;
 
   virtual function void do_copy (uvm_object rhs);
     this_type p;
-    KEY key;
     super.do_copy(rhs);
     if (rhs==null || !$cast(p, rhs))
       begin

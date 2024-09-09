@@ -41,8 +41,6 @@
 class uvm_push_sequencer #(type REQ=uvm_sequence_item, RSP=REQ)
                                    extends uvm_sequencer_param_base #(REQ, RSP);
 
-  typedef uvm_push_sequencer #( REQ , RSP) this_type;
-
   // Port -- NODOCS -- req_port
   //
   // The push sequencer requires access to a blocking put interface.
@@ -72,7 +70,6 @@ class uvm_push_sequencer #(type REQ=uvm_sequence_item, RSP=REQ)
   // @uvm-ieee 1800.2-2020 auto 15.6.3.3
   task run_phase(uvm_phase phase);
     REQ t;
-    int selected_sequence;
 
     fork
       begin
